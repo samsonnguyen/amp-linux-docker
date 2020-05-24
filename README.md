@@ -3,7 +3,7 @@ Installs and runs the AMP for Endpoints linux connector inside of docker. Suppor
 # Usage
 
 * Download an AMP for Endpoints Linux (RHEL 7) to this directory
-* docker-compose up --build
+* `docker-compose up --build`
 
 You should see the new connector registered into AMP for Endpoints portal
 
