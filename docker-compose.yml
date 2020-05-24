@@ -1,0 +1,28 @@
+version: '3'
+services:
+  amp:
+    build: .
+    image: amp-linux-docker:latest
+    tmpfs:
+      - /tmp
+      - /run
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - .:/mnt
+      - cisco_logs:/var/log/cisco
+  ampscansvc_logger:
+    image: busybox
+    volumes:
+      - cisco_logs:/var/log/cisco
+    command: sh -c "sleep 10; tail -f /var/log/cisco/ampscansvc.log"
+    depends_on:
+      - amp
+  ampdaemon_logger:
+    image: busybox
+    volumes:
+      - cisco_logs:/var/log/cisco
+    command: sh -c "sleep 10; tail -f /var/log/cisco/ampdaemon.log"
+    depends_on:
+      - amp
+volumes:
+  cisco_logs:
